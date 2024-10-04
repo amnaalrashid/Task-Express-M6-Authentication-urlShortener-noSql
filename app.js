@@ -1,4 +1,3 @@
-//imports
 const express = require("express");
 const cors = require("cors");
 const morgan = require("morgan");
@@ -41,3 +40,12 @@ app.use(errorHandler);
 app.listen(3000, () => {
   console.log("The application is running on localhost: 3000");
 });
+
+// Example of a protected route
+app.get(
+  "/protected-route",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    res.json({ message: "This is a protected route", user: req.user });
+  }
+);
